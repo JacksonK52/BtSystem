@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+.app-font-poppins {
+    font-family: 'Poppins', sans-serif;
+}
+
+.app-font-600 {
+    font-weight: 600;
+}
+
+body {
+    background: #ad5389;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #3c1053, #ad5389);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #3c1053, #ad5389); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.div-full-screen {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.container-fluid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 4;
+}
+
+.glassmorphism {
+    background: rgba( 0, 0, 0, 0.25 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 6px );
+    -webkit-backdrop-filter: blur( 6px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+.heading {
+    display: inline;
+    border-bottom: 2px solid white;
+}
+
+#particles-js {
+    z-index: 3;
+}
+.app-form {
+    z-index: 9999;
+}
+
+.app-form input {
+    border: none;
+}

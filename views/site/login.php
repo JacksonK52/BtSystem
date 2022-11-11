@@ -6,44 +6,51 @@
 
 use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Html;
+use app\assets\ParticlejsAsset;
+
+ParticlejsAsset::register($this);
 
 $this->title = 'Login';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
+<div class="div-full-screen" id="particles-js">
+    <canvas class="particles-js-canvas-el" style="width: 100vw; height: 100vh;"></canvas>
+</div>
+<div class="container-fluid">
+    <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="col-12 col-md-8 col-lg-4">
+            <!-- /.login-logo -->
+            <div class="card glassmorphism">
+                <div class="card-body rounded">
+                    <div class="text-center mb-5">
+                        <h2 class="app-font-poppins app-font-600 text-white heading"><?= Yii::$app->name ?></h2>
+                    </div>
 
-    <?php $form = ActiveForm::begin([
-        'id' => 'login-form',
-        'layout' => 'horizontal',
-        'fieldConfig' => [
-            'template' => "{label}\n{input}\n{error}",
-            'labelOptions' => ['class' => 'col-lg-1 col-form-label mr-lg-3'],
-            'inputOptions' => ['class' => 'col-lg-3 form-control'],
-            'errorOptions' => ['class' => 'col-lg-7 invalid-feedback'],
-        ],
-    ]); ?>
-
-        <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
-
-        <?= $form->field($model, 'password')->passwordInput() ?>
-
-        <?= $form->field($model, 'rememberMe')->checkbox([
-            'template' => "<div class=\"offset-lg-1 col-lg-3 custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
-        ]) ?>
-
-        <div class="form-group">
-            <div class="offset-lg-1 col-lg-11">
-                <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                    <div class="px-4">
+                        <?php $form = ActiveForm::begin() ?>
+                        <!-- Email -->
+                        <?= $form->field($model, 'email')->textInput(['placeholder' => 'Email', 'inputmode' => 'email'])->label('Email', ['class' => 'text-white']) ?>
+                        <!-- Password -->
+                        <?= $form->field($model, 'password')->passwordInput(["placeholder" => "Password"])->label("Password", ["class" => "text-white"]) ?>
+                        <!-- Button -->
+                        <div class="form-group float-right">
+                            <button type="submit" class="btn bg-gradient-primary rounded-pill px-4"><i class="fas fa-key pr-2"></i> LOGIN</button>
+                        </div>
+                        <?php ActiveForm::end() ?>
+                    </div>
+                </div>
             </div>
         </div>
-
-    <?php ActiveForm::end(); ?>
-
-    <div class="offset-lg-1" style="color:#999;">
-        You may login with <strong>admin/admin</strong> or <strong>demo/demo</strong>.<br>
-        To modify the username/password, please check out the code <code>app\models\User::$users</code>.
     </div>
 </div>
+
+<script>
+    // Allow User to Enter Only Number
+    const numberValidation = (e) => {
+        var unicode = e.charCode ? e.charCode : e.keyCode
+        if (unicode != 8) { // backspace key
+            if (unicode < 48 || unicode > 57) //if not a number
+                return false; //disable key press
+        }
+    }
+</script>
