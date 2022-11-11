@@ -1,4 +1,9 @@
-# btsystem
+<p align='center'>
+    <img src='/web/logo.png' width=320px />
+    <h2 style='text-align: center'>BtSystem</h2>
+</p>
+
+## Introduction
 
 ---
 
@@ -18,6 +23,12 @@ A bug tracking system or defect tracking system is a software application that k
 
 4. Update or install the required packages of the project by running the command.
 
-    > $ composer update.
+    > $ composer update
 
-5. Now you are all set to run the project, open your browser and goto your server name that you have setup during your virtual host.
+5. Create a database in your phpmyadmin with the name "btsystem_db" with the charset "utf8mb4_general_ci".
+
+6. Migrate all the necessary tables using the command
+
+    > $ php yii migrate
+
+7. Now you are all set to run the project, open your browser and goto your server name that you have setup during your virtual host.
