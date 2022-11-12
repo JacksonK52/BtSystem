@@ -6,6 +6,9 @@
 use app\assets\AuthAsset;
 use yii\bootstrap4\Html;
 
+$controller = Yii::$app->controller->id;
+$action = Yii::$app->controller->action->id;
+
 AuthAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -25,12 +28,10 @@ AuthAsset::register($this);
     <?php $this->head() ?>
 </head>
 
-<body class="hold-transition login-page">
+<body>
     <?php $this->beginBody() ?>
 
-    <div class="login-box">
-        <?= $content ?>
-    </div>
+    <?= $content ?>
 
     <?php $this->endBody() ?>
     <!-- Notification System -->

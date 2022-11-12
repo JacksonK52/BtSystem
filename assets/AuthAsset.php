@@ -24,21 +24,24 @@ class AuthAsset extends AssetBundle
         'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback',
         // Font Awesome 5.15.4 Pro
         'css/fontawesome/css/all.css',
-        // icheck bootstrap
-        'css/theme/icheck-bootstrap.min.css',
+        // Font Awesome Animation
+        'css/fontawesome-animation/font-awesome-animation.min.css',
         // Notification Toastr
         'css/theme/toastr.min.css',
         // AdminLTE 3.2
         'css/theme/adminlte.min.css',
+        // Custom Auth Css
+        'css/auth/auth.css'
     ];
     public $js = [
-        // jQuery 3.6
-        'js/theme/jquery.min.js',
         // Bootstrap 4
         'js/theme/bootstrap.bundle.min.js',
         // Notification Toastr
         'js/theme/toastr.min.js',
         // AdminLTE 3.2
         'js/theme/adminlte.min.js',
+    ];
+    public $depends = [
+        'yii\web\YiiAsset',
     ];
 }
