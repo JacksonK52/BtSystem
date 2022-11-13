@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -23,17 +24,25 @@ class AppAsset extends AssetBundle
         // Google Font: Source Sans Pro
         'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback',
         // Font Awesome 5.15.4 Pro
-        'css/fontawesome/css/all.css',
-        // Adminlte 3.2
-        'css/theme/adminlte.min.css',
+        'plugins/fontawesome/css/all.css',
+        // Font Awesome Animation
+        'plugins/fontawesome-animation/font-awesome-animation.min.css',
+        // Notification Toastr
+        'plugins/adminlte/css/toastr.min.css',
+        // AdminLTE 3.2
+        'plugins/adminlte/css/adminlte.min.css',
         // Custom Css
         'css/site.css',
     ];
     public $js = [
-        'js/'
+        // Bootstrap 4
+        'plugins/adminlte/js/bootstrap.bundle.min.js',
+        // Notification Toastr
+        'plugins/adminlte/js/toastr.min.js',
+        // AdminLTE 3.2
+        'plugins/adminlte/js/adminlte.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
-        'yii\bootstrap4\BootstrapAsset',
     ];
 }

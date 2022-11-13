@@ -68,14 +68,3 @@ $this->title = 'Login';
         </div>
     </div>
 </div>
-
-<script>
-    // Allow User to Enter Only Number
-    const numberValidation = (e) => {
-        var unicode = e.charCode ? e.charCode : e.keyCode
-        if (unicode != 8) { // backspace key
-            if (unicode < 48 || unicode > 57) //if not a number
-                return false; //disable key press
-        }
-    }
-</script>
