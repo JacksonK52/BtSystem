@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -26,10 +27,6 @@ class BackendAsset extends AssetBundle
         'plugins/fontawesome/css/all.css',
         // Font Awesome Animation
         'plugins/fontawesome-animation/font-awesome-animation.min.css',
-        // DataGrid
-        'plugins/datagrid/css/dataTables.bootstrap4.min.css',
-        'plugins/datagrid/css/responsive.bootstrap4.min.css',
-        'plugins/datagrid/css/buttons.bootstrap4.min.css',
         // Notification Toastr
         'plugins/adminlte/css/toastr.min.css',
         // AdminLTE 3.2
@@ -40,20 +37,6 @@ class BackendAsset extends AssetBundle
     public $js = [
         // Bootstrap 4
         'plugins/adminlte/js/bootstrap.bundle.min.js',
-        // DataGrid
-        'plugins/datagrid/js/jquery.dataTables.min.js',
-        'plugins/datagrid/js/dataTables.bootstrap4.min.js',
-        'plugins/datagrid/js/dataTables.responsive.min.js',
-        'plugins/datagrid/js/responsive.bootstrap4.min.js',
-        'plugins/datagrid/js/dataTables.buttons.min.js',
-        'plugins/datagrid/js/buttons.bootstrap4.min.js',
-        'plugins/datagrid/js/jszip.min.js',
-        'plugins/datagrid/js/pdfmake.min.js',
-        'plugins/datagrid/js/vfs_fonts.js',
-        'plugins/datagrid/js/buttons.html5.min.js',
-        'plugins/datagrid/js/buttons.print.min.js',
-        'plugins/datagrid/js/buttons.colVis.min.js',
-        'plugins/datagrid/js/custDataGrid.js',
         // Notification Toastr
         'plugins/adminlte/js/toastr.min.js',
         // AdminLTE 3.2
