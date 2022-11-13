@@ -15,5 +15,8 @@ $this->title = 'Forgot Password';
 <h1>Forgot password</h1>
 
 <?php $form = ActiveForm::begin() ?>
-
+    <?= $form->field($model, 'email')->textInput(['placeholder' => 'Email', 'inputmode' => 'email'])->label('Email *') ?>
+    <div class="form-group float-right">
+        <button class="btn bg-gradient-primary">Find</button>
+    </div>
 <?php ActiveForm::end() ?>
