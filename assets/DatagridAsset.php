@@ -15,31 +15,17 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class BackendAsset extends AssetBundle
+class DatagridAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        // Google Font: Source Sans Pro (AdminLTE Template Required)
-        'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback',
-        // Font Awesome 5.15.4 Pro
-        'plugins/fontawesome/css/all.css',
-        // Font Awesome Animation
-        'plugins/fontawesome-animation/font-awesome-animation.min.css',
         // DataGrid
         'plugins/datagrid/css/dataTables.bootstrap4.min.css',
         'plugins/datagrid/css/responsive.bootstrap4.min.css',
         'plugins/datagrid/css/buttons.bootstrap4.min.css',
-        // Notification Toastr
-        'plugins/adminlte/css/toastr.min.css',
-        // AdminLTE 3.2
-        'plugins/adminlte/css/adminlte.min.css',
-        // Custom Backend Css
-        'css/backend.css',
     ];
     public $js = [
-        // Bootstrap 4
-        'plugins/adminlte/js/bootstrap.bundle.min.js',
         // DataGrid
         'plugins/datagrid/js/jquery.dataTables.min.js',
         'plugins/datagrid/js/dataTables.bootstrap4.min.js',
@@ -54,12 +40,8 @@ class BackendAsset extends AssetBundle
         'plugins/datagrid/js/buttons.print.min.js',
         'plugins/datagrid/js/buttons.colVis.min.js',
         'plugins/datagrid/js/custDataGrid.js',
-        // Notification Toastr
-        'plugins/adminlte/js/toastr.min.js',
-        // AdminLTE 3.2
-        'plugins/adminlte/js/adminlte.min.js',
     ];
     public $depends = [
-        'yii\web\YiiAsset',
+        \app\assets\BackendAsset::class,
     ];
 }

@@ -23,23 +23,23 @@ class AuthAsset extends AssetBundle
         // Google Font: Source Sans Pro (AdminLTE Template Required)
         'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback',
         // Font Awesome 5.15.4 Pro
-        'css/fontawesome/css/all.css',
+        'plugins/fontawesome/css/all.css',
         // Font Awesome Animation
-        'css/fontawesome-animation/font-awesome-animation.min.css',
+        'plugins/fontawesome-animation/font-awesome-animation.min.css',
         // Notification Toastr
-        'css/theme/toastr.min.css',
+        'plugins/adminlte/css/toastr.min.css',
         // AdminLTE 3.2
-        'css/theme/adminlte.min.css',
+        'plugins/adminlte/css/adminlte.min.css',
         // Custom Auth Css
         'css/auth/auth.css'
     ];
     public $js = [
         // Bootstrap 4
-        'js/theme/bootstrap.bundle.min.js',
+        'plugins/adminlte/js/bootstrap.bundle.min.js',
         // Notification Toastr
-        'js/theme/toastr.min.js',
+        'plugins/adminlte/js/toastr.min.js',
         // AdminLTE 3.2
-        'js/theme/adminlte.min.js',
+        'plugins/adminlte/js/adminlte.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
