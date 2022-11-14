@@ -23,7 +23,9 @@ $this->title = 'Login';
                 <div class="card-body rounded pb-0">
                     <div class="row justify-content-center">
                         <div class="col-12 text-center">
-                            <h2 class="app-font-michroma text-white heading"><?= Yii::$app->name ?></h2>
+                            <a class="text-decoration-none" href="<?= Url::to(['/site']) ?>">
+                                <h2 class="app-font-michroma text-white heading"><?= Yii::$app->name ?></h2>
+                            </a>
                         </div>
                     </div>
                     <div class="row mt-4">

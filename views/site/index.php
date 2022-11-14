@@ -2,9 +2,16 @@
 
 /** @var yii\web\View $this */
 
+use yii\helpers\Url;
+use yii\widgets\ActiveForm;
+
 $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
+    <form action="<?= Url::to(['/site/logout']) ?>" method="post">
+        <input type="hidden" name="<?= Yii::$app->request->csrfParam; ?>" value="<?= Yii::$app->request->csrfToken; ?>" />
+        <button type="submit" class="btn btn-primary">Logout</button>
+    </form>
 
     <div class="jumbotron text-center bg-transparent">
         <h1 class="display-4">Congratulations!</h1>

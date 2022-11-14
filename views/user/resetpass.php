@@ -6,10 +6,7 @@
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Url;
 
-$this->registerCssFile("@web/css/auth/forgotpassword.css", ['depends' => \app\assets\AuthAsset::class]);
-$this->registerJsFile("@web/js/auth/forgotpassword.js", ['depends' => \app\assets\AuthAsset::class]);
-
-$this->title = 'Forgot Password';
+$this->title = 'Reset Password';
 ?>
 
 <div class="container-fluid">
@@ -18,7 +15,8 @@ $this->title = 'Forgot Password';
             <div class="card">
                 <div class="card-body">
                     <?php $form = ActiveForm::begin() ?>
-                        <?= $form->field($model, 'email')->textInput(['placeholder' => 'Email', 'inputmode' => 'email'])->label('Email *') ?>
+                        <?= $form->field($model, 'password')->passwordInput(['placeholder' => 'password'])->label('Password *') ?>
+                        <?= $form->field($model, 'confirm_password')->passwordInput(['placeholder' => 'password'])->label('Confirm Password *') ?>
                         <div class="form-group float-right">
                             <button class="btn bg-gradient-primary rounded-pill">Change Password</button>
                         </div>
