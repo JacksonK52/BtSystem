@@ -25,7 +25,9 @@ class User extends ActiveRecord implements IdentityInterface
     // Const Value for Role
     const ROLE_SUPERADMIN = 0;
     const ROLE_ADMIN = 1;
-    const ROLE_CLIENT = 2;
+    const ROLE_TEAM_LEADER = 2;
+    const ROLE_TESTER = 3;
+    const ROLE_DEVELOPER = 4;
 
     // Constant Value for Status
     const STATUS_INACTIVE = 0;
@@ -56,9 +58,9 @@ class User extends ActiveRecord implements IdentityInterface
             // name, email, subject and body are required
             [['slug', 'name', 'email', 'password', 'salt', 'confirm_password'], 'required'],
             [['salt', 'verify', 'role', 'status'], 'integer'],
-            // Fullname and username must be at least 2 characters long
+            // name must be at least 2 characters long
             [['name'], 'string', 'min' => 2],
-            [['email'], 'string', 'min' => 10, 'max' => 15],
+            [['email'], 'string'],
             [['img_location'], 'image', 'skipOnEmpty' => true, 'extensions' => 'jpg, jpeg, png', 'minWidth' => 500, 'maxWidth' => 500, 'minHeight' => 500, 'maxHeight' => 500, "maxSize" => 307200],
             // password an confirm_password must be same
             ['confirm_password', 'compare', 'compareAttribute' => 'password', 'message' => "Password doesn't match"],
@@ -134,7 +136,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function validateEmail($email)
     {
-        $user = User::find()->andWhere("email = :e and status = :active", ["e" => $email, "active" => $this::STATUS_ACTIVE])->one();
+        $user = User::find()->andWhere("email = :e and status != :deleted", ["e" => $email, "deleted" => $this::STATUS_DELETED])->one();
         return (empty($user) ? true : false);
     }
 
@@ -155,7 +157,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getRole($role)
     {
-        return ($role === $this::ROLE_SUPERADMIN ? 'Super Admin' : ($role === $this::ROLE_ADMIN ? 'Admin' : ($role === $this::ROLE_CLIENT ? 'Client' : '')));
+        return ($role === $this::ROLE_SUPERADMIN ? 'Super Admin' : ($role === $this::ROLE_ADMIN ? 'Admin' : ($role === $this::ROLE_TEAM_LEADER ? 'Team Leader' : ($role === $this::ROLE_TESTER ? 'Tester' : 'Developer'))));
     }
 
     /**

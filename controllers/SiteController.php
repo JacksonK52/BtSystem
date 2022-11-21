@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\User;
 
 class SiteController extends Controller
 {
@@ -47,10 +48,6 @@ class SiteController extends Controller
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],
         ];
     }
 
@@ -82,7 +79,43 @@ class SiteController extends Controller
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        if ($model->load(Yii::$app->request->post())) {
+            // Find User Data
+            $user = User::find()->andWhere('email = :uEmail', ['uEmail' => $model->email])->one();
+            if (empty($user)) {
+                Yii::$app->session->setFlash('danger', 'Invalid Email and Password!');
+                return $this->refresh();
+            }
+
+            // Check Email Verification
+            if ($user->verify == User::VERIFY_NOT) {
+                // Send Email
+                \Yii::$app->mailer->htmlLayout = "@app/mail/layouts/html";
+                $email = Yii::$app->mailer->compose(['html' => '@app/mail/views/email-verification'], ['name' => $user->name, 'token' => $user->token_id, 'authkey' => $user->auth_key]);
+                $email->setFrom([Yii::$app->params['senderEmail'] => Yii::$app->params['senderName']]);
+                $email->setTo($user->email);
+                $email->setSubject('Email Verification Link - BtSystem');
+                if (!$email->send()) {
+                    Yii::$app->session->setFlash('danger', 'Fail To Send Verification Email!');
+                    return $this->refresh();
+                }
+
+                Yii::$app->session->setFlash('info', 'Email Not Verify! We Have Sent A Varification Link To Your Registered Email');
+                return $this->refresh();
+            }
+
+            // Check Account Status
+            if ($user->status == User::STATUS_INACTIVE || $user->status == USer::STATUS_DELETED) {
+                Yii::$app->session->setFlash('danger', 'Account Block By Super Admin!');
+                return $this->refresh();
+            }
+
+            // Login
+            if (!$model->login()) {
+                Yii::$app->session->setFlash('danger', 'Invalid Email and Password!');
+                return $this->refresh();
+            }
+
             return $this->redirect(['/site']);
         }
 

@@ -2,6 +2,7 @@
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
+$email = require __DIR__ . '/email.php';
 
 $config = [
     'id' => 'btsystem',
@@ -30,10 +31,8 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure transport
-            // for the mailer to send real emails.
-            'useFileTransport' => true,
+            'useFileTransport' => false,
+            'transport' => $email,
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -47,11 +46,16 @@ $config = [
         'assetManager' => [
             'appendTimestamp' => true
         ],
+        'BtsystemComponent' => [
+            'class' => 'app\components\BtSystemComponent',
+        ],
         'db' => $db,
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '/site' => '/site',
+                '<action>' => '/site/<action>',
             ],
         ],
     ],
