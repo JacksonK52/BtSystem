@@ -136,7 +136,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function validateEmail($email)
     {
-        $user = User::find()->andWhere("email = :e and status = :active", ["e" => $email, "active" => $this::STATUS_ACTIVE])->one();
+        $user = User::find()->andWhere("email = :e and status != :deleted", ["e" => $email, "deleted" => $this::STATUS_DELETED])->one();
         return (empty($user) ? true : false);
     }
 

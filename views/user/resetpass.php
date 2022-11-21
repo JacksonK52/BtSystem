@@ -13,6 +13,9 @@ $this->title = 'Reset Password';
     <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
         <div class="col-12 col-md-8 col-lg-4">
             <div class="card">
+                <div class="card-header">
+                    <h3>Reset Password</h3>
+                </div>
                 <div class="card-body">
                     <?php $form = ActiveForm::begin() ?>
                         <?= $form->field($model, 'password')->passwordInput(['placeholder' => 'password'])->label('Password *') ?>
@@ -21,9 +24,6 @@ $this->title = 'Reset Password';
                             <button class="btn bg-gradient-primary rounded-pill">Change Password</button>
                         </div>
                     <?php ActiveForm::end() ?>
-                </div>
-                <div class="card-footer text-center py-0">
-                    <small>Developed by Jackson Konjengbam & Gobinda Deb</small>
                 </div>
             </div>
         </div>

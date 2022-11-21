@@ -46,11 +46,17 @@ $config = [
         'assetManager' => [
             'appendTimestamp' => true
         ],
+        'BtsystemComponent' => [
+            'class' => 'app\components\BtSystemComponent',
+        ],
         'db' => $db,
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'rules' => [],
+            'rules' => [
+                '/site' => '/site',
+                '<action>' => '/site/<action>',
+            ],
         ],
     ],
     'params' => $params,
