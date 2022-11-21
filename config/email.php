@@ -3,7 +3,7 @@
 // Mailtrap Setup
 return [
     'class' => 'Swift_SmtpTransport',
-    'host' => 'smtp.mailtrap.io',
+    'host' => '',
     'username' => '',
     'password' => '',
     'port' => '',
