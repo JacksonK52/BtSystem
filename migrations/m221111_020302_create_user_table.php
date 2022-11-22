@@ -21,7 +21,7 @@ class m221111_020302_create_user_table extends Migration
             'email' => $this->string(255)->notNull(),
             'auth_key' => $this->string(100)->notNull(),
             'token_id' => $this->string(100)->notNull(),
-            'img_location' => $this->string(255)->defaultValue('/user/user.png')->notNull(),
+            'img_location' => $this->string(255)->defaultValue('/default/user.png')->notNull(),
             'verify' => $this->tinyInteger(1)->defaultValue(0)->notNull(),  // 0 - Not Verify | 1 - Verify
             'role' => $this->tinyInteger(1)->defaultValue(1)->notNull(),    // 0 - Super-admin | 1 - Admin | 2 - Team-leader | 3 - Tester | 4 - Developer
             'status' => $this->tinyInteger(1)->defaultValue(1)->notNull(),  // 0 - Inactive | 1 - Active | 2 - Deleted

@@ -1,0 +1,12 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Logout button in sidepanel for mobile view */
+.app-form-button {
+    margin: 0 0 3.2px;
+    padding: 8px 16px;
+    border: 0;
+    text-align: left;
+    color: #c2c7d0
+}

@@ -42,6 +42,6 @@ class DatagridAsset extends AssetBundle
         'plugins/datagrid/js/custDataGrid.js',
     ];
     public $depends = [
-        \app\assets\BackendAsset::class,
+        \app\assets\AppAsset::class,
     ];
 }

@@ -23,7 +23,7 @@ AuthAsset::register($this);
     <!-- Title -->
     <title><?= Html::encode($this->title) ?></title>
     <!-- FavIcon -->
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/default/Logo.png" type="image/x-icon">
 
     <?php $this->head() ?>
 </head>

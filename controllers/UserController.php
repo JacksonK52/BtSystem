@@ -39,6 +39,26 @@ class UserController extends Controller
     }
 
     /**
+     * Index action
+     * ===========================================
+     */
+    public function actionIndex()
+    {
+
+        // Find User Data
+        if(Yii::$app->user->identity->role == User::ROLE_SUPERADMIN) {
+            $users = User::find()->andWhere('role != :superAdmin and status != :deleted', ['superAdmin' => User::ROLE_SUPERADMIN, 'deleted' => User::STATUS_DELETED])->all();
+        } else {
+
+        }
+
+        $context = [
+            'users' => $users,
+        ];
+        return $this->render('index', $context);
+    }
+
+    /**
      * Forgotpassword action
      * ===========================================
      */
