@@ -28,6 +28,20 @@ class m221111_020302_create_user_table extends Migration
             'updated_at' => $this->timestamp()->defaultValue(null)->append('ON UPDATE CURRENT_TIMESTAMP'),
             'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP')
         ]);
+
+        // Super Admin
+        $this->insert('{{%user}}', [
+            'slug' => 'super_admin-' . Yii::$app->security->generateRandomString(8),
+            'salt' => '361249',
+            'name' => 'Super Admin',
+            'password' => password_hash('lenovo@123361249', PASSWORD_DEFAULT), // bCrypt Encryption with salt
+            'email' => 'admin@btsystem.io',
+            'auth_key' => Yii::$app->security->generateRandomString(32),
+            'token_id' => Yii::$app->security->generateRandomString(32),
+            'verify' => 1,
+            'role' => 0,
+            'status' => 1
+        ]);
     }
 
     /**

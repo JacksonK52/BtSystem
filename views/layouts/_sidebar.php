@@ -65,13 +65,34 @@ use app\models\User;
 
 
                 <!-- ========= Users ========= -->
-                <li class="nav-item <?= $controller == 'user' ? 'menu-open' : '' ?>">
-                    <a href="<?= Url::to(['/user/index']) ?>" class="nav-link <?= $controller == 'user' ? 'active' : '' ?>">
+                <li class="nav-item <?= ($controller == 'user' || $controller == 'profile') ? 'menu-open' : '' ?>">
+                    <a href="#" class="nav-link <?= ($controller == 'user' || $controller == 'profile') ? 'active' : '' ?>">
+                        <!-- Dropdown Function -->
                         <i class="nav-icon fas fa-user-friends"></i>
                         <p>
                             Users
+                            <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <!-- Profile -->
+                        <li class="nav-item">
+                            <a href="<?= Url::to(['/user/profile']) ?>" class="nav-link <?= ((($controller == 'user' && ($action == 'profile' || $action == 'update' || $action == 'upload-image')) || ($controller == 'profile' && ($action == 'add' || $action == 'update'))) ? 'active' : '') ?>">
+                                <i class="far fa-circle nav-icon text-danger"></i>
+                                <p>Profile</p>
+                            </a>
+                        </li>
+                        <!-- User List -->
+                        <?php if (Yii::$app->user->identity->role === User::ROLE_SUPERADMIN || Yii::$app->user->identity->role === User::ROLE_ADMIN || Yii::$app->user->identity->role === User::ROLE_TEAM_LEADER) : ?>
+                            <li class="nav-item">
+                                <a href="<?= Url::to(['/user/index']) ?>" class="nav-link <?= (($controller == 'user' && ($action == 'index' || $action == 'add')) ? 'active' : '') ?>">
+                                    <i class="far fa-circle nav-icon text-danger"></i>
+                                    <p>User List</p>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+
+                    </ul>
                 </li>
 
                 <!-- ========= Logout ========= -->

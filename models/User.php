@@ -6,6 +6,41 @@ use Yii;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
+/**
+ * This is the model class for table "user".
+ *
+ * @property int $id
+ * @property string $slug
+ * @property int $salt
+ * @property string $name
+ * @property string $password
+ * @property string $email
+ * @property string $auth_key
+ * @property string $token_id
+ * @property string $img_location
+ * @property int $verify
+ * @property int $role
+ * @property int $status
+ * @property string|null $updated_at
+ * @property string $created_at
+ *
+ * @property Bug[] $bugs
+ * @property Bug[] $bugs0
+ * @property Images[] $images
+ * @property Images[] $images0
+ * @property Profile[] $profiles
+ * @property Profile[] $profiles0
+ * @property Profile[] $profiles1
+ * @property Project[] $projects
+ * @property Project[] $projects0
+ * @property Scheduling[] $schedulings
+ * @property Scheduling[] $schedulings0
+ * @property TeamMember[] $teamMembers
+ * @property TeamMember[] $teamMembers0
+ * @property TeamMember[] $teamMembers1
+ * @property Team[] $teams
+ * @property Team[] $teams0
+ */
 class User extends ActiveRecord implements IdentityInterface
 {
     /**
@@ -213,5 +248,165 @@ class User extends ActiveRecord implements IdentityInterface
                 return parent::beforeSave($insert);
             }
         }
+    }
+
+    /**
+     * Gets query for [[Bugs]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBugs()
+    {
+        return $this->hasMany(Bug::class, ['created_by' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Bugs0]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBugs0()
+    {
+        return $this->hasMany(Bug::class, ['updated_by' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Images]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getImages()
+    {
+        return $this->hasMany(Images::class, ['created_by' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Images0]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getImages0()
+    {
+        return $this->hasMany(Images::class, ['updated_by' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Profiles]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProfiles()
+    {
+        return $this->hasMany(Profile::class, ['created_by' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Profiles0]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProfiles0()
+    {
+        return $this->hasMany(Profile::class, ['updated_by' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Profiles1]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProfiles1()
+    {
+        return $this->hasMany(Profile::class, ['user_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Projects]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProjects()
+    {
+        return $this->hasMany(Project::class, ['created_by' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Projects0]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProjects0()
+    {
+        return $this->hasMany(Project::class, ['updated_by' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Schedulings]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSchedulings()
+    {
+        return $this->hasMany(Scheduling::class, ['created_by' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Schedulings0]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSchedulings0()
+    {
+        return $this->hasMany(Scheduling::class, ['updated_by' => 'id']);
+    }
+
+    /**
+     * Gets query for [[TeamMembers]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTeamMembers()
+    {
+        return $this->hasMany(TeamMember::class, ['created_by' => 'id']);
+    }
+
+    /**
+     * Gets query for [[TeamMembers0]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTeamMembers0()
+    {
+        return $this->hasMany(TeamMember::class, ['updated_by' => 'id']);
+    }
+
+    /**
+     * Gets query for [[TeamMembers1]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTeamMembers1()
+    {
+        return $this->hasMany(TeamMember::class, ['user_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Teams]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTeams()
+    {
+        return $this->hasMany(Team::class, ['created_by' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Teams0]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTeams0()
+    {
+        return $this->hasMany(Team::class, ['updated_by' => 'id']);
     }
 }

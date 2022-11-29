@@ -12,12 +12,18 @@ use yii\helpers\Url;
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav ">
+        <!-- Menu Button -->
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
+        <!-- Dashboard -->
+        <li class="nav-item">
+            <a class="nav-link" href="<?= Url::to(['/site']) ?>" role="button">Dashboard</a>
+        </li>
+        <!-- Log out -->
         <?php if (!Yii::$app->user->isGuest) : ?>
             <li class="nav-item d-none d-sm-inline-block">
-                <form class="form-inline" action="<?= Url::to('/admin/logout') ?>" method="post">
+                <form class="form-inline" action="<?= Url::to('/site/logout') ?>" method="post">
                     <input type="hidden" name="<?= Yii::$app->request->csrfParam; ?>" value="<?= Yii::$app->request->csrfToken; ?>" />
                     <button type="submit" class="btn nav-link">Log Out</button>
                 </form>
