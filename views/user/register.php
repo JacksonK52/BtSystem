@@ -19,7 +19,7 @@ $this->title = 'Register Account';
                     <!-- Register Form -->
                     <div class="row justify-content-center align-items-center">
                         <div class="col-12">
-                            <?= $this->render('_form', ['model' => $model]) ?>
+                            <?= $this->render('_form', ['model' => $model, 'mode' => 'admin-registration']) ?>
                         </div>
                     </div>
                 </div>

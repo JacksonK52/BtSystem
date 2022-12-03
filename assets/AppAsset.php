@@ -21,8 +21,8 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        // Google Font: Source Sans Pro
-        'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback',
+        // Google Font: Source Sans Pro (AdminLTE Template Required)
+        'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap',
         // Font Awesome 5.15.4 Pro
         'plugins/fontawesome/css/all.css',
         // Font Awesome Animation

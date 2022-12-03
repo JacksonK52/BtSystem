@@ -87,23 +87,6 @@ class SiteController extends Controller
                 return $this->refresh();
             }
 
-            // Check Email Verification
-            if ($user->verify == User::VERIFY_NOT) {
-                // Send Email
-                \Yii::$app->mailer->htmlLayout = "@app/mail/layouts/html";
-                $email = Yii::$app->mailer->compose(['html' => '@app/mail/views/email-verification'], ['name' => $user->name, 'token' => $user->token_id, 'authkey' => $user->auth_key]);
-                $email->setFrom([Yii::$app->params['senderEmail'] => Yii::$app->params['senderName']]);
-                $email->setTo($user->email);
-                $email->setSubject('Email Verification Link - BtSystem');
-                if (!$email->send()) {
-                    Yii::$app->session->setFlash('danger', 'Fail To Send Verification Email!');
-                    return $this->refresh();
-                }
-
-                Yii::$app->session->setFlash('info', 'Email Not Verify! We Have Sent A Varification Link To Your Registered Email');
-                return $this->refresh();
-            }
-
             // Check Account Status
             if ($user->status == User::STATUS_INACTIVE || $user->status == USer::STATUS_DELETED) {
                 Yii::$app->session->setFlash('danger', 'Account Block By Super Admin!');
@@ -136,15 +119,5 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
-    }
-
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
     }
 }

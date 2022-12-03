@@ -57,13 +57,8 @@ $this->title = 'Login';
                             <?php ActiveForm::end() ?>
                         </div>
                     </div>
-                    <div class="row mt-4 mb-2">
-                        <div class="col-12">
-                            <p class="mb-0 text-white">Dont have an account? <a class="btn btn-outline-primary rounded-pill btn-sm" href="<?= Url::to(['/user/register']) ?>">Register</a></p>
-                        </div>
-                    </div>
                 </div>
-                <div class="card-footer text-center text-white py-0">
+                <div class="card-footer text-center text-white py-0 mt-4">
                     <small>Developed by Jackson Konjengbam & Gobinda Deb</small>
                 </div>
             </div>
