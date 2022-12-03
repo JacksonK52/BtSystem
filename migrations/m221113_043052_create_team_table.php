@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `{{%team}}`.
  */
-class m221113_043430_create_team_table extends Migration
+class m221113_043052_create_team_table extends Migration
 {
     /**
      * {@inheritdoc}
@@ -15,19 +15,19 @@ class m221113_043430_create_team_table extends Migration
         $this->createTable('{{%team}}', [
             'id' => $this->primaryKey(),
             'slug' => $this->string(255)->notNull(),
-            'project_id' => $this->integer()->notNull(),
+            'team_leader_id' => $this->integer()->notNull(),
             'title' => $this->string(255)->notNull(),
             'description' => $this->text(),
             'updated_by' => $this->integer()->notNull(),
             'created_by' => $this->integer()->notNull(),
-            'status' => $this->tinyInteger(1)->defaultValue(1)->notNull(),
+            'status' => $this->tinyInteger(1)->defaultValue(1)->notNull(),  // 0 - Inactive | 1 - Active | 2 - Deleted
             'updated_at' => $this->timestamp()->defaultValue(null)->append('ON UPDATE CURRENT_TIMESTAMP'),
             'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP')
         ]);
 
-        // Project Id
-        $this->createIndex('{{%idx-team-project_id}}', '{{%team}}', 'project_id');
-        $this->addForeignKey('{{%fk-team-project_id-project-id}}', '{{%team}}', 'project_id', '{{%project}}', 'id', 'RESTRICT', 'CASCADE');
+        // Team Leader
+        $this->createIndex('{{%idx-team-team_leader_id}}', '{{%team}}', 'team_leader_id');
+        $this->addForeignKey('{{%fk-team-team_leader_id-user-id}}', '{{%team}}', 'team_leader_id', '{{%user}}', 'id', 'RESTRICT', 'CASCADE');
 
         // Updated By
         $this->createIndex('{{%idx-team-updated_by}}', '{{%team}}', 'updated_by');
@@ -50,11 +50,11 @@ class m221113_043430_create_team_table extends Migration
         // Updated By
         $this->dropForeignKey('{{%fk-team-updated_by-user-id}}', '{{%team}}');
         $this->dropIndex('{{%idx-team-updated_by}}', '{{%team}}');
-        
-        // Project Id
-        $this->dropForeignKey('{{%fk-team-project_id-project-id}}', '{{%team}}');
-        $this->dropIndex('{{%idx-team-project_id}}', '{{%team}}');
 
+        // Team Leader Id
+        $this->dropForeignKey('{{%fk-team-team_leader_id-user-id}}', '{{%team}}');
+        $this->dropIndex('{{%idx-team-team_leader_id}}', '{{%team}}');
+        
         // Delete Table
         $this->dropTable('{{%team}}');
     }

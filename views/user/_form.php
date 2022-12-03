@@ -6,12 +6,19 @@
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
+use app\models\User;
 
-$roleArray = array(
-    ['id' => 2, 'title' => 'Team Leader'],
-    ['id' => 3, 'title' => 'Tester'],
-    ['id' => 4, 'title' => 'Developer']
-);
+if(Yii::$app->user->identity->role == User::ROLE_SUPERADMIN) {
+    $roleArray = array(
+        ['id' => 1, 'title' => 'Admin']
+    );
+} else {
+    $roleArray = array(
+        ['id' => 2, 'title' => 'Team Leader'],
+        ['id' => 3, 'title' => 'Tester'],
+        ['id' => 4, 'title' => 'Developer']
+    );
+}
 $roleData = ArrayHelper::map($roleArray, 'id', 'title');
 ?>
 

@@ -63,8 +63,31 @@ use app\models\User;
                     </ul>
                 </li>
 
+                <!-- ========= Teams Panel ========= -->
+                <?php if (Yii::$app->user->identity->role !== User::ROLE_DEVELOPER || Yii::$app->user->identity->role !== User::ROLE_TESTER) : ?>
+                    <li class="nav-item <?= ($controller == 'team') ? 'menu-open' : '' ?>">
+                        <a href="#" class="nav-link <?= ($controller == 'team') ? 'active' : '' ?>">
+                            <!-- Dropdown Function -->
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                Team
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <!-- Team List -->
+                            <li class="nav-item">
+                                <a href="<?= Url::to(['/team/index']) ?>" class="nav-link <?= (($controller == 'team' && ($action == 'index' || $action == 'add' || $action == 'update' || $action == 'view')) ? 'active' : '') ?>">
+                                    <i class="far fa-circle nav-icon text-danger"></i>
+                                    <p>Team List</p>
+                                </a>
+                            </li>
 
-                <!-- ========= Users ========= -->
+                        </ul>
+                    </li>
+                <?php endif; ?>
+
+                <!-- ========= Users Panel ========= -->
                 <li class="nav-item <?= ($controller == 'user' || $controller == 'profile') ? 'menu-open' : '' ?>">
                     <a href="#" class="nav-link <?= ($controller == 'user' || $controller == 'profile') ? 'active' : '' ?>">
                         <!-- Dropdown Function -->
@@ -83,7 +106,7 @@ use app\models\User;
                             </a>
                         </li>
                         <!-- User List -->
-                        <?php if (Yii::$app->user->identity->role === User::ROLE_SUPERADMIN || Yii::$app->user->identity->role === User::ROLE_ADMIN || Yii::$app->user->identity->role === User::ROLE_TEAM_LEADER) : ?>
+                        <?php if (Yii::$app->user->identity->role === User::ROLE_SUPERADMIN || Yii::$app->user->identity->role === User::ROLE_ADMIN) : ?>
                             <li class="nav-item">
                                 <a href="<?= Url::to(['/user/index']) ?>" class="nav-link <?= (($controller == 'user' && ($action == 'index' || $action == 'add')) ? 'active' : '') ?>">
                                     <i class="far fa-circle nav-icon text-danger"></i>

@@ -24,10 +24,39 @@ class UserController extends Controller
                 'only' => ['index', 'profile', 'add', 'update', 'change-status', 'upload-image', 'delete', 'remove-image'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'profile', 'add', 'update', 'change-status', 'upload-image', 'delete', 'remove-image'],
+                        'actions' => ['index', 'add', 'change-status', 'delete'],
                         'allow' => true,
                         'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            // Status Validation
+                            if (Yii::$app->user->identity->status === User::STATUS_INACTIVE || Yii::$app->user->identity->status === User::STATUS_DELETED) {
+                                return $this->redirect(['/user/force-logout']);
+                            }
+
+                            // Role Validation - Super-admin and Admin are allowed.
+                            if (Yii::$app->user->identity->role != User::ROLE_SUPERADMIN && Yii::$app->user->identity->role != User::ROLE_ADMIN) {
+                                return $this->redirect(['/site']);
+                            }
+
+                            return true;
+                        }
                     ],
+                    [
+                        'actions' => ['profile', 'update', 'upload-image', 'remove-image'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            // Status Validation
+                            if (Yii::$app->user->identity->status === User::STATUS_INACTIVE || Yii::$app->user->identity->status === User::STATUS_DELETED) {
+                                return $this->redirect(['/user/force-logout']);
+                            }
+
+                            // Role Validation - Everyone are allowed.
+                            
+
+                            return true;
+                        }
+                    ]
                 ],
             ],
             'verbs' => [
@@ -87,6 +116,15 @@ class UserController extends Controller
         $model->addRule(["password", "confirm_password"], "required")
             ->addRule(["password", "confirm_password"], "string", ["min" => 6])
             ->addRule('confirm_password', 'compare', ['compareAttribute' => 'password', "message" => "Password doesn't match"]);
+        if($model->load(Yii::$app->request->post())) {
+            if(!User::updateAll(['password' => password_hash($model->password.$user->salt, PASSWORD_DEFAULT)], ['id' => $user->id])) {
+                Yii::$app->session->setFlash('danger', 'Fail To Change Password!');
+            } else {
+                Yii::$app->session->setFlash('success', 'Password Changed!');
+            }
+
+            return $this->refresh();
+        }
 
         $context = [
             'user' => $user,
@@ -223,134 +261,6 @@ class UserController extends Controller
             'model' => $model,
         ];
         return $this->render('resetpass', $context);
-    }
-
-    /**
-     * Register
-     * ===========================================
-     */
-    public function actionRegister()
-    {
-        // Selecting Auth Layout
-        $this->layout = 'auth';
-
-        // User Model
-        $model = new User();
-        if ($model->load(Yii::$app->request->post())) {
-            // Check if Email already exist
-            if (!$model->validateEmail($model->email)) {
-                Yii::$app->session->setFlash('danger', 'Email Already Exist!');
-                $model->email = '';
-                return $this->redirect(['register', ['model' => $model]]);
-            }
-
-            // User Information
-            $model->slug = Yii::$app->BtsystemComponent->slugGenerator($model->name);
-            $model->salt = rand(100000, 999999);
-
-            // Upload Image
-            if ($model->img_location = UploadedFile::getInstance($model, "img_location")) {
-                // Create directory
-                if (!is_dir('upload/user/')) {
-                    mkdir('upload/user/', 0777);
-                }
-
-                // Uploaded Image Information
-                $name = strtolower(explode(" ", $model->name)[0]);
-                $ext = $model->img_location->extension;
-                // Save Image
-                $img_name = $name . "-" . Yii::$app->security->generateRandomString(8);
-                $img_location = 'upload/user/' . $img_name . '.' . $ext;
-                $model->img_location->saveAs($img_location);
-                $model->img_location = '/' . $img_location;
-            } else {
-                $model->img_location = '/default/user.png';
-            }
-
-            if ($model->save()) {
-                // Send Email
-                \Yii::$app->mailer->htmlLayout = "@app/mail/layouts/html";
-                $email = Yii::$app->mailer->compose(['html' => '@app/mail/views/email-verification'], ['name' => $model->name, 'token' => $model->token_id, 'authkey' => $model->auth_key]);
-                $email->setFrom([Yii::$app->params['senderEmail'] => Yii::$app->params['senderName']]);
-                $email->setTo($model->email);
-                $email->setSubject('Password reset for your btsystem account');
-                $email->send();
-
-                return $this->redirect(['/user/account-registered', 'slug' => $model->slug]);
-            } else {
-                Yii::$app->session->setFlash('danger', 'Fail To Register!');
-                return $this->refresh();
-            }
-        }
-
-        $context = [
-            'model' => $model,
-        ];
-        return $this->render('register', $context);
-    }
-
-    /**
-     * Account Registered
-     * ===========================================
-     */
-    public function actionAccountRegistered($slug = null)
-    {
-        // Selecting Auth Layout
-        $this->layout = 'auth';
-
-        // Check Parameter
-        if (empty($slug) || $slug == null) {
-            Yii::$app->session->setFlash('danger', 'Missing Required Information!');
-            return $this->redirect(['/site/login']);
-        }
-
-        // Find and Validate User Data
-        $user = User::find()->andWhere('slug = :uSlug and status = :active', ['uSlug' => $slug, 'active' => User::STATUS_ACTIVE])->one();
-        if (empty($user)) {
-            Yii::$app->session->setFlash('danger', 'Data Not Found!');
-            return $this->redirect(['/site/login']);
-        }
-
-        // Check user email verification
-        if ($user->verify == User::VERIFY_YES) {
-            Yii::$app->session->setFlash('danger', 'Unauthorized Access!');
-            return $this->redirect(['/site/login']);
-        }
-
-        return $this->render('account-registered');
-    }
-
-    /**
-     * Verify Email
-     * ===========================================
-     */
-    public function actionVerifyEmail($token = null, $auth = null)
-    {
-        // Selecting Auth Layout
-        $this->layout = 'auth';
-
-        // Check Parameter
-        if ((empty($token) || $token == null) || (empty($auth) || $auth == null)) {
-            Yii::$app->session->setFlash('danger', 'Unauthorized Access!');
-            return $this->redirect(['/site/login']);
-        }
-
-        // Find and Validate User
-        $user = User::find()->andWhere('token_id = :uToken and auth_key = :uAuth and role != :superAdmin', ['uToken' => $token, 'uAuth' => $auth, 'superAdmin' => User::ROLE_SUPERADMIN])->one();
-        if (empty($user)) {
-            Yii::$app->session->setFlash('danger', 'Unauthorized Access!');
-            return $this->redirect(['/user/forgotpassword']);
-        }
-
-        // Update User Information
-        $auth = Yii::$app->security->generateRandomString();
-        if (!User::updateAll(['auth_key' => $auth, 'verify' => User::VERIFY_YES], ['id' => $user->id])) {
-            Yii::$app->session->setFlash('danger', 'Fail To Verify Email!');
-            return $this->redirect(['/site/login']);
-        }
-
-        Yii::$app->user->login(User::findIdentity($user->id), 3600 * 24 * 30);
-        return $this->redirect(['/site']);
     }
 
     /**
@@ -632,5 +542,15 @@ class UserController extends Controller
             'user' => $user,
         ];
         return $this->render('upload-image', $context);
+    }
+
+    /**
+     * Force Logout
+     * ==========================================
+     */
+    public function actionForceLogout()
+    {
+        Yii::$app->user->logout();
+        return $this->redirect(["/site/login"]);
     }
 }

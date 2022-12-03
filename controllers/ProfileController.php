@@ -19,10 +19,10 @@ class ProfileController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['index', 'add'],
+                'only' => ['add'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'add'],
+                        'actions' => ['add'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -35,16 +35,6 @@ class ProfileController extends Controller
                 ],
             ],
         ];
-    }
-
-    /**
-     * Index
-     * ======================================
-     */
-    public function actionIndex()
-    {
-
-        return $this->render('index');
     }
 
     /**
