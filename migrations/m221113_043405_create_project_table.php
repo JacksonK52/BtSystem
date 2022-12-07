@@ -15,7 +15,6 @@ class m221113_043405_create_project_table extends Migration
         $this->createTable('{{%project}}', [
             'id' => $this->primaryKey(),
             'slug' => $this->string(255)->notNull(),
-            'team_id' => $this->integer()->notNull(),
             'title' => $this->string(255)->notNull(),
             'description' => $this->text(),
             'updated_by' => $this->integer()->notNull(),
@@ -24,11 +23,7 @@ class m221113_043405_create_project_table extends Migration
             'updated_at' => $this->timestamp()->defaultValue(null)->append('ON UPDATE CURRENT_TIMESTAMP'),
             'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP')
         ]);
-
-        // Team Id
-        $this->createIndex('{{%idx-project-team_id}}', '{{%project}}', 'team_id');
-        $this->addForeignKey('{{%fk-project-team_id-team-id}}', '{{%project}}', 'team_id', '{{%team}}', 'id', 'RESTRICT', 'CASCADE');
-
+        
         // Updated By
         $this->createIndex('{{%idx-project-updated_by}}', '{{%project}}', 'updated_by');
         $this->addForeignKey('{{%fk-project-updated_by-user-id}}', '{{%project}}', 'updated_by', '{{%user}}', 'id', 'RESTRICT', 'CASCADE');
@@ -50,10 +45,6 @@ class m221113_043405_create_project_table extends Migration
         // Updated By
         $this->dropForeignKey('{{%fk-project-updated_by-user-id}}', '{{%project}}');
         $this->dropIndex('{{%idx-project-updated_by}}', '{{%project}}');
-
-        // Team Id
-        $this->dropForeignKey('{{%fk-project-team_id-team-id}}', '{{%project}}');
-        $this->dropIndex('{{%idx-project-team_id}}', '{{%project}}');
 
         // Delete Table
         $this->dropTable('{{%project}}');

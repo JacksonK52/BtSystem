@@ -51,11 +51,7 @@ $this->title = "Profile"
                             <!-- Control -->
                             <div class="d-flex justify-content-around p-2">
                                 <!-- Edit User Information -->
-                                <?php if (empty($param)) : ?>
-                                    <a href="<?= Url::to(['/user/update']) ?>" class="btn btn-info btn-sm rounded-pill px-4"><i class="fas fa-pencil"></i> Edit</a>
-                                <?php else : ?>
-                                    <a href="<?= Url::to(['/user/update', 'slug' => $param]) ?>" class="btn btn-info btn-sm rounded-pill px-4"><i class="fas fa-pencil"></i> Edit</a>
-                                <?php endif; ?>
+                                <a href="<?= Url::to(['/user/update', 'slug' => $param]) ?>" class="btn btn-info btn-sm rounded-pill px-4"><i class="fas fa-pencil"></i> Update</a>
                                 <!-- Remove Image -->
                                 <?php if ($user->img_location == '/default/user.png') : ?>
                                     <a href="<?= Url::to(['/user/upload-image', 'slug' => $param]) ?>" class="btn btn-primary btn-sm rounded-pill px-4"><i class="fas fa-cloud-upload"></i> Profile Pic</a>

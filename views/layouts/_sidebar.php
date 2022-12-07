@@ -63,6 +63,30 @@ use app\models\User;
                     </ul>
                 </li>
 
+                <!-- ========= Project Panel ========= -->
+                <?php if (Yii::$app->user->identity->role !== User::ROLE_DEVELOPER || Yii::$app->user->identity->role !== User::ROLE_TESTER) : ?>
+                    <li class="nav-item <?= ($controller == 'project') ? 'menu-open' : '' ?>">
+                        <a href="#" class="nav-link <?= ($controller == 'project') ? 'active' : '' ?>">
+                            <!-- Dropdown Function -->
+                            <i class="nav-icon fas fa-disc-drive"></i>
+                            <p>
+                                Project
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <!-- Project List -->
+                            <li class="nav-item">
+                                <a href="<?= Url::to(['/project/index']) ?>" class="nav-link <?= (($controller == 'project' && ($action == 'index' || $action == 'add' || $action == 'update' || $action == 'view')) ? 'active' : '') ?>">
+                                    <i class="far fa-circle nav-icon text-danger"></i>
+                                    <p>Project List</p>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                <?php endif; ?>
+
                 <!-- ========= Teams Panel ========= -->
                 <?php if (Yii::$app->user->identity->role !== User::ROLE_DEVELOPER || Yii::$app->user->identity->role !== User::ROLE_TESTER) : ?>
                     <li class="nav-item <?= ($controller == 'team') ? 'menu-open' : '' ?>">
