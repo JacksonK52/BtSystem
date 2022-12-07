@@ -9,7 +9,6 @@ use Yii;
  *
  * @property int $id
  * @property string $slug
- * @property int $team_id
  * @property string $title
  * @property string|null $description
  * @property int $updated_by
@@ -44,12 +43,11 @@ class Project extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['slug', 'team_id', 'title', 'updated_by', 'created_by'], 'required'],
+            [['slug', 'title', 'updated_by', 'created_by'], 'required'],
             [['description'], 'string'],
-            [['team_id', 'updated_by', 'created_by', 'status'], 'integer'],
+            [['updated_by', 'created_by', 'status'], 'integer'],
             [['updated_at', 'created_at'], 'safe'],
             [['slug', 'title'], 'string', 'max' => 255],
-            [['team_id'], 'exist', 'skipOnError' => true, 'targetClass' => Team::class, 'targetAttribute' => ['team_id' => 'id']],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['created_by' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['updated_by' => 'id']],
         ];
@@ -63,7 +61,6 @@ class Project extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'slug' => 'Slug',
-            'team_id' => 'Team',
             'title' => 'Title',
             'description' => 'Description',
             'updated_by' => 'Updated By',

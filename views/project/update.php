@@ -1,0 +1,50 @@
+<?php
+
+/** @var yii\web\View $this */
+/** @var app\models\Project $project */
+
+use yii\helpers\Url;
+
+$this->title = 'Update Project';
+?>
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <!-- Title -->
+            <div class="col-sm-6">
+                <h1 class="m-0">Update Project</h1>
+            </div>
+            <!-- Breadcrumb -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="<?= Url::to(['/project/index']) ?>">Project Panel</a></li>
+                    <li class="breadcrumb-item active">Update Project</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div><!-- /.content-header -->
+
+<!-- Main content -->
+<div class="container-fluid mt-4">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Update Project</h3>
+                    <small class="text-danger mb-0">* Field mark with astrik are manditory</small>
+                </div>
+                <div class="card-body">
+                    <!-- Register Form -->
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-12">
+                            <?= $this->render('_form', ['model' => $project, 'mode' => 'update']) ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

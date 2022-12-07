@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string $slug
+ * @property int $project_id
  * @property int $team_leader_id
  * @property string $title
  * @property string|null $description
@@ -20,7 +21,7 @@ use Yii;
  *
  * @property Bug[] $bugs
  * @property User $createdBy
- * @property Project[] $projects
+ * @property Project $project
  * @property User $teamLeader
  * @property TeamMember[] $teamMembers
  * @property User $updatedBy
@@ -46,12 +47,13 @@ class Team extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['slug', 'team_leader_id', 'title', 'title', 'updated_by', 'created_by'], 'required'],
+            [['slug', 'project_id', 'team_leader_id', 'title', 'updated_by', 'created_by'], 'required'],
+            [['project_id', 'team_leader_id', 'updated_by', 'created_by', 'status'], 'integer'],
             [['description'], 'string'],
-            [['team_leader_id', 'updated_by', 'created_by', 'status'], 'integer'],
             [['updated_at', 'created_at'], 'safe'],
             [['slug', 'title'], 'string', 'max' => 255],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['created_by' => 'id']],
+            [['project_id'], 'exist', 'skipOnError' => true, 'targetClass' => Project::class, 'targetAttribute' => ['project_id' => 'id']],
             [['team_leader_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['team_leader_id' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['updated_by' => 'id']],
         ];
@@ -65,7 +67,8 @@ class Team extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'slug' => 'Slug',
-            'team_leader_id' => 'Team Leader',
+            'project_id' => 'Project ID',
+            'team_leader_id' => 'Team Leader ID',
             'title' => 'Title',
             'description' => 'Description',
             'updated_by' => 'Updated By',
@@ -117,13 +120,13 @@ class Team extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Projects]].
+     * Gets query for [[Project]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getProjects()
+    public function getProject()
     {
-        return $this->hasMany(Project::class, ['team_id' => 'id']);
+        return $this->hasOne(Project::class, ['id' => 'project_id']);
     }
 
     /**
