@@ -67,8 +67,8 @@ class Team extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'slug' => 'Slug',
-            'project_id' => 'Project ID',
-            'team_leader_id' => 'Team Leader ID',
+            'project_id' => 'Project',
+            'team_leader_id' => 'Team Leader',
             'title' => 'Title',
             'description' => 'Description',
             'updated_by' => 'Updated By',

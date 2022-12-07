@@ -51,7 +51,7 @@ $this->title = 'Project Panel';
                             <thead class="thead-dark">
                                 <tr>
                                     <th>Title</th>
-                                    <th>Team Leader</th>
+                                    <th>Assign Team Leader</th>
                                     <th>Created At</th>
                                     <th>Status</th>
                                     <th>Control</th>
@@ -75,7 +75,7 @@ $this->title = 'Project Panel';
                             <tfoot>
                                 <tr>
                                     <th>Title</th>
-                                    <th>Team Leader</th>
+                                    <th>Assign Team Leader</th>
                                     <th>Created At</th>
                                     <th>Status</th>
                                     <th>Control</th>

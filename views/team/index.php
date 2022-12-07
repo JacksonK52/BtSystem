@@ -51,7 +51,8 @@ $this->title = 'Teams';
                             <thead class="thead-dark">
                                 <tr>
                                     <th>Title</th>
-                                    <th>Description</th>
+                                    <th>Assign Project</th>
+                                    <th>Team Leader</th>
                                     <th>Created At</th>
                                     <th>Status</th>
                                     <th>Control</th>
@@ -62,8 +63,10 @@ $this->title = 'Teams';
                                     <tr>
                                         <!-- Title -->
                                         <td><?= $team->title ?></td>
-                                        <!-- Description -->
-                                        <td class="text-truncate" style="max-width: 150px;"><?= empty($team->description) ? 'N/A' : $team->description ?></td>
+                                        <!-- Assign Project -->
+                                        <td><?= empty($team->project->title) ? 'N/A' : $team->project->title ?></td>
+                                        <!-- Team Leader -->
+                                        <td><?= empty($team->teamLeader->name) ? 'N/A' : $team->teamLeader->name ?></td>
                                         <!-- Created At -->
                                         <td><?= date('d-M-Y', strtotime($team->created_at)) ?></td>
                                         <!-- Status -->
@@ -100,7 +103,8 @@ $this->title = 'Teams';
                             <tfoot>
                                 <tr>
                                     <th>Title</th>
-                                    <th>Description</th>
+                                    <th>Assign Project</th>
+                                    <th>Team Leader</th>
                                     <th>Created At</th>
                                     <th>Status</th>
                                     <th>Control</th>
