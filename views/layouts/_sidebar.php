@@ -64,7 +64,7 @@ use app\models\User;
                 </li>
 
                 <!-- ========= Project Panel ========= -->
-                <?php if (Yii::$app->user->identity->role !== User::ROLE_DEVELOPER || Yii::$app->user->identity->role !== User::ROLE_TESTER) : ?>
+                <?php if (Yii::$app->user->identity->role !== User::ROLE_DEVELOPER && Yii::$app->user->identity->role !== User::ROLE_TESTER) : ?>
                     <li class="nav-item <?= ($controller == 'project') ? 'menu-open' : '' ?>">
                         <a href="#" class="nav-link <?= ($controller == 'project') ? 'active' : '' ?>">
                             <!-- Dropdown Function -->
@@ -88,7 +88,7 @@ use app\models\User;
                 <?php endif; ?>
 
                 <!-- ========= Teams Panel ========= -->
-                <?php if (Yii::$app->user->identity->role !== User::ROLE_DEVELOPER || Yii::$app->user->identity->role !== User::ROLE_TESTER) : ?>
+                <?php if (Yii::$app->user->identity->role !== User::ROLE_DEVELOPER && Yii::$app->user->identity->role !== User::ROLE_TESTER) : ?>
                     <li class="nav-item <?= ($controller == 'team') ? 'menu-open' : '' ?>">
                         <a href="#" class="nav-link <?= ($controller == 'team') ? 'active' : '' ?>">
                             <!-- Dropdown Function -->

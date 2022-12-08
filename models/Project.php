@@ -28,6 +28,7 @@ class Project extends \yii\db\ActiveRecord
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
     const STATUS_DELETED = 2;
+    const STATUS_COMPLETED = 3;
 
     /**
      * {@inheritdoc}
@@ -78,7 +79,7 @@ class Project extends \yii\db\ActiveRecord
      */
     public function getStatus($status)
     {
-        return ($status === $this::STATUS_INACTIVE ? 'Inactive' : ($status === $this::STATUS_ACTIVE ? 'Active' : 'Deleted'));
+        return ($status === $this::STATUS_INACTIVE ? 'Inactive' : ($status === $this::STATUS_ACTIVE ? 'Active' : ($status === $this::STATUS_COMPLETED ? 'Completed' : 'Deleted')));
     }
 
     /**
@@ -88,7 +89,7 @@ class Project extends \yii\db\ActiveRecord
      */
     public function getStatusColor($status)
     {
-        return ($status === $this::STATUS_INACTIVE ? 'text-warning' : ($status === $this::STATUS_ACTIVE ? 'text-success' : 'text-danger'));
+        return ($status === $this::STATUS_INACTIVE ? 'text-warning' : ($status === $this::STATUS_ACTIVE || $status === $this::STATUS_COMPLETED ? 'text-success' : 'text-danger'));
     }
 
     /**
