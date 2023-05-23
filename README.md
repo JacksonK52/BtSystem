@@ -1,5 +1,5 @@
 <p align='center'>
-    <img src='/web/logo.png' width=320px />
+    <img src='https://github.com/JacksonK52/BtSystem/images/BtSystem.png' width=320px />
     <h2 align='center' style='text-align: center'>BtSystem</h2>
 </p>
 
